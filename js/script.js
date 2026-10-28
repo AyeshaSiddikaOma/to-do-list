@@ -3,7 +3,10 @@ let input = document.querySelector("#input");
 let ul = document.querySelector("#ul");
 
 btn.addEventListener("click", () => {
-  document.createElement("input");
+  if(input.value == ""){
+    alert('Please Write Something')
+  }else{
+    document.createElement("input");
   let list = document.createElement("li");
   let checkBox = document.createElement("input");
   checkBox.type = "checkbox";
@@ -45,4 +48,5 @@ replaceBtn.addEventListener('click',()=>{
 })
 
 
+  }
 });
