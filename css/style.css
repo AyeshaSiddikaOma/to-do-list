@@ -1,0 +1,275 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,600;0,800;1,400&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+    --ink: #1f1b16;
+    --paper: #f4ecd8;
+    --paper-dark: #e8dcc0;
+    --accent: #d94f30;
+    --accent-dark: #b23a20;
+    --teal: #1f6f6b;
+    --shadow: rgba(31, 27, 22, 0.18);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 60px 16px;
+    font-family: 'DM Mono', monospace;
+    color: var(--ink);
+    background-color: var(--teal);
+    background-image:
+        radial-gradient(circle at 20% 15%, rgba(255, 255, 255, 0.08) 0, transparent 40%),
+        radial-gradient(circle at 80% 85%, rgba(0, 0, 0, 0.15) 0, transparent 45%),
+        repeating-linear-gradient(45deg, transparent 0 14px, rgba(255, 255, 255, 0.035) 14px 15px);
+}
+
+/* ---------- The ticket card ---------- */
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    padding: 44px 34px 38px;
+    background: var(--paper);
+    background-image: repeating-linear-gradient(
+        transparent 0 31px,
+        rgba(31, 111, 107, 0.12) 31px 32px
+    );
+    border-radius: 6px;
+    box-shadow:
+        0 2px 0 var(--paper-dark),
+        0 18px 40px var(--shadow),
+        12px 12px 0 rgba(0, 0, 0, 0.18);
+    transform: rotate(-0.8deg);
+}
+
+/* punched holes on the left edge */
+.container::before {
+    content: "";
+    position: absolute;
+    top: 28px;
+    bottom: 28px;
+    left: 10px;
+    width: 10px;
+    background-image: radial-gradient(circle, var(--teal) 4px, transparent 4.5px);
+    background-size: 10px 34px;
+    background-repeat: repeat-y;
+}
+
+/* tape strip on top */
+.container::after {
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    width: 110px;
+    height: 28px;
+    transform: translateX(-50%) rotate(2deg);
+    background: rgba(217, 79, 48, 0.75);
+    box-shadow: 0 2px 6px var(--shadow);
+    clip-path: polygon(0 10%, 4% 0, 8% 12%, 12% 0, 92% 0, 96% 12%, 100% 0, 100% 90%, 96% 100%, 92% 88%, 88% 100%, 12% 100%, 8% 88%, 4% 100%, 0 90%);
+}
+
+/* ---------- Heading ---------- */
+h1 {
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 2.4rem;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 26px;
+    padding-left: 14px;
+    transform: rotate(0.8deg);
+}
+
+h1::first-line {
+    color: var(--accent);
+    font-style: italic;
+    font-weight: 600;
+}
+
+/* ---------- Input + button ---------- */
+#input {
+    width: 100%;
+    margin-left: 14px;
+    width: calc(100% - 14px);
+    padding: 12px 4px;
+    font: 500 1rem 'DM Mono', monospace;
+    color: var(--ink);
+    background: transparent;
+    border: none;
+    border-bottom: 2px dashed var(--ink);
+    outline: none;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+#input::placeholder {
+    color: rgba(31, 27, 22, 0.4);
+}
+
+#input:focus {
+    border-bottom-style: solid;
+    border-bottom-color: var(--accent);
+    background: rgba(217, 79, 48, 0.06);
+}
+
+#btn,#replace {
+    display: block;
+    margin: 18px 0 30px 14px;
+    padding: 11px 26px;
+    font: 500 0.85rem 'DM Mono', monospace;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--paper);
+    background: var(--ink);
+    border: 2px solid var(--ink);
+    border-radius: 2px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--accent);
+    transition: transform 0.12s, box-shadow 0.12s, background 0.12s;
+}
+
+#btn:hover {
+    background: var(--accent-dark);
+    border-color: var(--accent-dark);
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--ink);
+}
+
+#btn:active {
+    transform: translate(3px, 3px);
+    box-shadow: 1px 1px 0 var(--ink);
+}
+
+/* ---------- List ---------- */
+#ul {
+    list-style: none;
+    counter-reset: task;
+    padding-left: 14px;
+}
+
+#ul li {
+    counter-increment: task;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 44px;
+    padding: 8px 8px 8px 46px;
+    margin-bottom: 10px;
+    background: #fffaf0;
+    border: 1.5px solid var(--ink);
+    border-radius: 3px;
+    box-shadow: 3px 3px 0 var(--ink);
+    font-size: 0.95rem;
+    word-break: break-word;
+    animation: slideIn 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+    transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+}
+
+#ul li::before {
+    content: counter(task, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 36px;
+    display: grid;
+    place-items: center;
+    font-family: 'Fraunces', serif;
+    font-weight: 800;
+    font-size: 0.95rem;
+    color: var(--paper);
+    background: var(--teal);
+    border-right: 1.5px solid var(--ink);
+}
+
+#ul li:nth-child(even) {
+    transform: rotate(0.5deg);
+}
+
+#ul li:nth-child(odd) {
+    transform: rotate(-0.4deg);
+}
+
+#ul li:hover {
+    transform: rotate(0deg) translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--accent);
+    background: #fff;
+}
+
+/* done state (add class "done" with JS if you want) */
+#ul li.done {
+    opacity: 0.55;
+    text-decoration: line-through;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 2px;
+}
+
+/* small delete button inside li (if you add a <button> there) */
+#ul li button {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    font: 500 0.9rem 'DM Mono', monospace;
+    color: var(--accent);
+    background: transparent;
+    border: 1.5px solid var(--accent);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, transform 0.15s;
+}
+
+#ul li button:hover {
+    color: var(--paper);
+    background: var(--accent);
+    transform: rotate(90deg);
+}
+
+/* empty state */
+#ul:empty::after {
+    content: "-- kichu nai, notun kaj add koro --";
+    display: block;
+    padding: 18px 0;
+    text-align: center;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: rgba(31, 27, 22, 0.45);
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-24px) rotate(-3deg);
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 520px) {
+    body {
+        padding: 40px 12px;
+    }
+
+    .container {
+        padding: 40px 22px 30px;
+        box-shadow:
+            0 2px 0 var(--paper-dark),
+            0 12px 28px var(--shadow),
+            7px 7px 0 rgba(0, 0, 0, 0.18);
+    }
+
+    h1 {
+        font-size: 1.9rem;
+    }
+}
